@@ -132,6 +132,8 @@ public class SimulationControlModule extends AModule
 	@Override
 	public void startModule()
 	{
+		controlBlueTeam = getSubnodeConfiguration().getBoolean("controlBlueTeam", controlBlueTeam);
+		controlYellowTeam = getSubnodeConfiguration().getBoolean("controlYellowTeam", controlYellowTeam);
 		ConfigRegistration.registerConfigurableCallback("user", configObserver);
 		SumatraModel.getInstance().getModule(WorldInfoCollector.class).addObserver(visionObserver);
 		SumatraModel.getInstance().getModule(AVisionFilter.class).setBallPlacer(new BallPlacer());
