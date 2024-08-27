@@ -91,9 +91,6 @@
         <dependency>edu.tigers.sumatra.timer.ATimer</dependency>
     </module>
 
-
-    <module id="edu.tigers.sumatra.trees.OffensiveTreeProvider"/>
-
     <module id="edu.tigers.sumatra.timer.ATimer">
         <implementation>edu.tigers.sumatra.timer.SumatraTimer</implementation>
     </module>
