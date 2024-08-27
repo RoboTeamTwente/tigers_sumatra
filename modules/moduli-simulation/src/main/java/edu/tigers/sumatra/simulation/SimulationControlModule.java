@@ -91,6 +91,9 @@ public class SimulationControlModule extends AModule
 	@Configurable(defValue = "150.0", comment = "Max allowed divergence from actual position, before resetting the state")
 	private static double maxDivergence = 150;
 
+	@Configurable(defValue = "")
+	private static String staticHostname = "";
+
 	static
 	{
 		ConfigRegistration.registerClass("user", SimulationControlModule.class);
@@ -163,6 +166,10 @@ public class SimulationControlModule extends AModule
 		lastRobotFeedbackMap.clear();
 		stateSyncBuffers.clear();
 
+		if (!staticHostname.isEmpty())
+		{
+			hostname = staticHostname;
+		}
 		if (Strings.isBlank(hostname))
 		{
 			log.debug("No hostname set. Will not connect to simulator.");
@@ -490,7 +497,7 @@ public class SimulationControlModule extends AModule
 					.flatMap(SSLVisionCam::getVisionAddress)
 					.map(InetAddress::getHostAddress)
 					.ifPresent(visionAddress -> {
-						if (!visionAddress.equals(hostname))
+						if (staticHostname.isEmpty() && !visionAddress.equals(hostname))
 						{
 							hostname = visionAddress;
 							reconnect();
